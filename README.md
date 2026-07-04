@@ -6,9 +6,9 @@ CineVerse is a modern movie discovery web application built with **React**, **Vi
 
 ## 🚀 Live Demo
 
-🔗 **Live Website:** https://your-cineverse.vercel.app
+🔗 **Live Website:** https://6a490ba283b30f82f2c091aa--cineverse-niyati.netlify.app/
 
-> Replace this with your deployed Vercel/Netlify URL.
+
 
 ---
 
