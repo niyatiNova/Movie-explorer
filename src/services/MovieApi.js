@@ -1,11 +1,14 @@
 const Token = import.meta.env.VITE_TMDB_TOKEN;
 
+console.log("Token exists:", !!Token);
+
 const BASE_URL = "https://api.themoviedb.org/3";
 
 export async function fetchMovies(endpoint) {
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       headers: {
+        accept: "application/json",
         Authorization: `Bearer ${Token}`,
       },
     });
@@ -22,6 +25,7 @@ export async function fetchMovies(endpoint) {
   }
 }
 
+// Fetch different movie categories
 export const fetchTrendingMovies = () =>
   fetchMovies("/trending/movie/day");
 
@@ -37,30 +41,37 @@ export const fetchUpcomingMovies = () =>
 export const fetchNowPlayingMovies = () =>
   fetchMovies("/movie/now_playing");
 
-
+// Search Movies
 export async function searchMovies(query) {
-  
- return fetchMovies(`/search/movie?query=${encodeURIComponent(query)}`);
-
-
+  return fetchMovies(`/search/movie?query=${encodeURIComponent(query)}`);
 }
 
-
+// Fetch Trailer
 export async function fetchMovieTrailer(movieId) {
-  const response = await fetch(
-    `${BASE_URL}/movie/${movieId}/videos`,
-    {
-      headers: {
-        Authorization: `Bearer ${Token}`,
-      },
+  try {
+    const response = await fetch(
+      `${BASE_URL}/movie/${movieId}/videos`,
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch trailer");
     }
-  );
 
-  const data = await response.json();
+    const data = await response.json();
 
-  return data.results.find(
-    (video) =>
-      video.site === "YouTube" &&
-      video.type === "Trailer"
-  );
+    return data.results.find(
+      (video) =>
+        video.site === "YouTube" &&
+        video.type === "Trailer"
+    );
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
