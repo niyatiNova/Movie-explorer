@@ -8,8 +8,8 @@ function MovieRow({ movies, title, setSelectedTrailer }) {
         {title}
       </h2>
 
-      <div className="overflow-x-auto scrollbar-hide">
-        <div className="flex gap-8 w-max pb-2">
+      <div className="overflow-x-auto overflow-y-hidden">
+        <div className="flex gap-8 w-max">
           {movies.map((movie) => (
             <MovieCard
               key={movie.id}
