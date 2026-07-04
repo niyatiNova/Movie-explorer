@@ -6,7 +6,7 @@ function MovieRow({ movies, title, setSelectedTrailer }) {
       <h2>{title}</h2>
 
       <div className="overflow-x-auto">
-        <div className="flex flex-nowrap">
+        <div className="flex flex-nowrap gap-4">
           {movies.map((movie) => (
             <MovieCard
               key={movie.id}
