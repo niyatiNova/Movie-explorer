@@ -5,32 +5,43 @@ import SearchBar from "./SearchBar";
 
 function NavBar({ searchQuery, setSearchQuery }) {
   return (
-    <nav className="w-full h-20 bg-black text-white flex items-center justify-between px-8 lg:px-12 shadow-lg">
+    <nav
+      className="
+        bg-black
+        text-white
+        flex
+        flex-col
+        md:flex-row
+        items-center
+        justify-between
+        gap-4
+        px-4
+        md:px-8
+        py-4
+      "
+    >
+      <img
+        src={logo}
+        alt="CineVerse Logo"
+        className="h-10 md:h-12 w-auto"
+      />
 
-      {/* Logo */}
-      <div className="flex items-center">
-        <img
-          src={logo}
-          alt="Cineverse Logo"
-          className="h-12 md:h-14 w-auto cursor-pointer"
-        />
-      </div>
-
-      {/* Search Bar */}
-      <div className="flex-1 flex justify-center px-6">
+      <div className="w-full md:w-auto flex justify-center">
         <SearchBar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
         />
       </div>
 
-      {/* User Icon */}
-      <div className="flex items-center">
-        <FaUserCircle
-          className="text-3xl hover:scale-110 transition-transform duration-300 cursor-pointer"
-        />
-      </div>
-
+      <FaUserCircle
+        className="
+          text-3xl
+          hover:scale-110
+          transition-transform
+          duration-300
+          cursor-pointer
+        "
+      />
     </nav>
   );
 }

@@ -22,20 +22,23 @@ function MovieCard({ movie, setSelectedTrailer }) {
     <div
       className="
         group
-        w-64
+        w-40
+        sm:w-44
+        md:w-52
+        lg:w-56
+        xl:w-64
         flex-shrink-0
         cursor-pointer
         rounded-2xl
         overflow-hidden
         bg-zinc-900
-        hover:-translate-y-2
-        hover:shadow-2xl
         transition-all
         duration-300
+        hover:-translate-y-2
+        hover:shadow-2xl
       "
     >
-      {/* Poster */}
-      <div className="relative h-[380px] overflow-hidden">
+      <div className="relative overflow-hidden">
         <img
           src={
             movie.poster_path
@@ -43,25 +46,37 @@ function MovieCard({ movie, setSelectedTrailer }) {
               : "https://via.placeholder.com/500x750?text=No+Image"
           }
           alt={movie.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          className="
+            w-full
+            h-[240px]
+            sm:h-[270px]
+            md:h-[300px]
+            lg:h-[340px]
+            xl:h-[380px]
+            object-cover
+            transition-transform
+            duration-500
+            group-hover:scale-110
+          "
         />
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-300" />
 
-        {/* Play Button */}
         <button
           onClick={handlePlay}
           className="
             absolute
             inset-0
             m-auto
-            w-16
-            h-16
+            w-10
+            h-10
+            md:w-12
+            md:h-12
+            lg:w-16
+            lg:h-16
             rounded-full
             bg-red-600
             hover:bg-red-700
-            text-white
             flex
             items-center
             justify-center
@@ -71,17 +86,16 @@ function MovieCard({ movie, setSelectedTrailer }) {
             duration-300
           "
         >
-          <FaPlay className="text-xl ml-1" />
+          <FaPlay className="text-white text-sm md:text-lg lg:text-xl ml-1" />
         </button>
       </div>
 
-      {/* Content */}
-      <div className="p-4">
-        <h3 className="text-white text-lg font-semibold truncate">
+      <div className="p-3 md:p-4">
+        <h3 className="text-white font-semibold text-sm md:text-base lg:text-lg truncate">
           {movie.title}
         </h3>
 
-        <div className="flex justify-between items-center mt-3 text-gray-300 text-sm">
+        <div className="flex justify-between items-center mt-3 text-gray-300 text-xs md:text-sm">
           <div className="flex items-center gap-2">
             <FaStar className="text-yellow-400" />
             <span>{movie.vote_average?.toFixed(1)}</span>

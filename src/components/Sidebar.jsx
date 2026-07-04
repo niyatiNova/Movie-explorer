@@ -49,12 +49,9 @@ function SideBar({ scrollToSection, refs }) {
   ];
 
   return (
-    <aside className="min-h-screen w-60 bg-black text-white px-5 py-8 shadow-xl">
-
-      <nav className="h-full">
-
-        <ul className="space-y-4">
-
+    <aside className="hidden md:flex w-64 min-h-screen bg-black text-white px-4 py-6">
+      <nav className="w-full">
+        <ul className="space-y-3">
           {menuItems.map((item) => {
             const Icon = item.icon;
 
@@ -62,24 +59,16 @@ function SideBar({ scrollToSection, refs }) {
               <li
                 key={item.id}
                 onClick={() => item.ref && scrollToSection(item.ref)}
-                className="flex items-center gap-4 px-4 py-3 rounded-xl cursor-pointer transition-all duration-300 hover:bg-red-600 hover:translate-x-2"
+                className="flex items-center gap-4 px-4 py-3 rounded-xl cursor-pointer hover:bg-zinc-800 transition-all duration-300 text-base"
+                style={{ fontFamily: "Poppins, sans-serif" }}
               >
-                <Icon className="text-2xl" />
-
-                <span
-                  className="text-lg font-medium"
-                  style={{ fontFamily: "Poppins, sans-serif" }}
-                >
-                  {item.name}
-                </span>
+                <Icon className="text-xl" />
+                <span>{item.name}</span>
               </li>
             );
           })}
-
         </ul>
-
       </nav>
-
     </aside>
   );
 }

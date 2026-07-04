@@ -1,31 +1,30 @@
-const Token = import.meta.env.VITE_TMDB_TOKEN;
-
-console.log("Token exists:", !!Token);
+const TOKEN = import.meta.env.VITE_TMDB_TOKEN;
 
 const BASE_URL = "https://api.themoviedb.org/3";
 
-export async function fetchMovies(endpoint) {
+const headers = {
+  accept: "application/json",
+  Authorization: `Bearer ${TOKEN}`,
+};
+
+async function fetchMovies(endpoint) {
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${Token}`,
-      },
+      headers,
     });
 
     if (!response.ok) {
-      throw new Error("Failed to fetch movies");
+      throw new Error(`Failed to fetch: ${response.status}`);
     }
 
     const data = await response.json();
     return data.results;
   } catch (error) {
-    console.error(error);
+    console.error("Movie API Error:", error);
     return [];
   }
 }
 
-// Fetch different movie categories
 export const fetchTrendingMovies = () =>
   fetchMovies("/trending/movie/day");
 
@@ -41,37 +40,37 @@ export const fetchUpcomingMovies = () =>
 export const fetchNowPlayingMovies = () =>
   fetchMovies("/movie/now_playing");
 
-// Search Movies
-export async function searchMovies(query) {
-  return fetchMovies(`/search/movie?query=${encodeURIComponent(query)}`);
-}
+export const searchMovies = (query) =>
+  fetchMovies(`/search/movie?query=${encodeURIComponent(query)}`);
 
-// Fetch Trailer
 export async function fetchMovieTrailer(movieId) {
   try {
     const response = await fetch(
       `${BASE_URL}/movie/${movieId}/videos`,
       {
-        headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${Token}`,
-        },
+        headers,
       }
     );
 
     if (!response.ok) {
-      throw new Error("Failed to fetch trailer");
+      throw new Error(`Failed to fetch trailer: ${response.status}`);
     }
 
     const data = await response.json();
 
-    return data.results.find(
-      (video) =>
-        video.site === "YouTube" &&
-        video.type === "Trailer"
+    return (
+      data.results.find(
+        (video) =>
+          video.site === "YouTube" &&
+          video.type === "Trailer"
+      ) ||
+      data.results.find(
+        (video) => video.site === "YouTube"
+      ) ||
+      null
     );
   } catch (error) {
-    console.error(error);
+    console.error("Trailer Error:", error);
     return null;
   }
 }
