@@ -1,62 +1,76 @@
 import { fetchMovieTrailer } from "../services/MovieApi";
 import { FaPlay } from "react-icons/fa";
-function HeroSection({ movies,setSelectedTrailer }) {
 
- 
-
+function HeroSection({ movies, setSelectedTrailer }) {
   if (movies.length === 0) {
-  return (
-    <div className="h-[550px] flex items-center justify-center text-white">
-      Loading...
-    </div>
-  );
-}
+    return (
+      <div className="h-[650px] flex items-center justify-center bg-black text-white text-2xl">
+        Loading...
+      </div>
+    );
+  }
 
-const handlePlay = async () => {
-    const trailer = await fetchMovieTrailer(movies[0].id);
+  const movie = movies[0];
+
+  const handlePlay = async () => {
+    const trailer = await fetchMovieTrailer(movie.id);
 
     if (trailer) {
-        setSelectedTrailer(trailer.key);
+      setSelectedTrailer(trailer.key);
     } else {
-        alert("Trailer not available");
+      alert("Trailer not available");
     }
-};
+  };
 
   return (
-    <div className="relative h-[550px] w-full overflow-hidden">
-
-  
-      
+    <section className="relative h-[650px] w-full overflow-hidden rounded-2xl">
+      {/* Background Image */}
       <img
-  src={`https://image.tmdb.org/t/p/original${movies[0]?.backdrop_path}`}
-  alt={movies[0]?.title}
-  className="w-full h-full object-cover"
-/>
+        src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+        alt={movie.title}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
 
-     <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
-      <div className="absolute top-10 left-10 text-white z-10">
-        
-    <h1 className="text-4xl font-bold max-w-lg" style={{ fontFamily: "Poppins, sans-serif" }}>
-      {movies[0]?.title}
-    </h1>
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-transparent"></div>
 
-     <div className="flex items-center gap-6 mt-6 text-sm" style={{ fontFamily: "Poppins, sans-serif" }}>
-    <span>⭐ {movies[0]?.vote_average?.toFixed(1)}</span>
-    <span>📅 {movies[0]?.release_date}</span>
-</div>
+      {/* Content */}
+      <div className="absolute inset-0 flex items-center">
+        <div className="max-w-xl ml-16 lg:ml-24 text-white z-10">
+          <h1
+            className="text-5xl lg:text-6xl font-bold"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
+            {movie.title}
+          </h1>
 
-    <p className="mt-4 w-[400px] text-[12px] text-gray-300 leading-7 line-clamp-4" style={{ fontFamily: "Poppins, sans-serif" }}>
-      {movies[0]?.overview}
-    </p>
-   
+          <div
+            className="flex items-center gap-8 mt-6 text-lg"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
+            <span>⭐ {movie.vote_average?.toFixed(1)}</span>
+            <span>📅 {movie.release_date}</span>
+          </div>
 
-<button className="mt-8 flex items-center gap-3 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-2xl text-lg font-semibold transition" style={{ fontFamily: "Poppins, sans-serif" }}
-onClick={handlePlay}><FaPlay/> Watch Teaser</button>
-    </div>
-    </div>
+          <p
+            className="mt-6 text-gray-300 text-lg leading-8 line-clamp-4"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
+            {movie.overview}
+          </p>
+
+          <button
+            onClick={handlePlay}
+            className="mt-10 flex items-center gap-3 bg-red-600 hover:bg-red-700 px-8 py-4 rounded-xl text-xl font-semibold transition-all duration-300 hover:scale-105"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
+            <FaPlay />
+            Watch Trailer
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }
 
-
-
- export default HeroSection
+export default HeroSection;
