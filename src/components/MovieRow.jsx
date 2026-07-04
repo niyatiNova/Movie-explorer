@@ -7,7 +7,7 @@ function MovieRow({ movies, title, setSelectedTrailer }) {
         {title}
       </h2>
 
-      <div className="overflow-x-auto overflow-y-hidden scrollbar-hide">
+      <div className="overflow-x-auto overflow-y-hidden">
         <div className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-8 w-max pb-4">
           {movies.map((movie) => (
             <MovieCard
