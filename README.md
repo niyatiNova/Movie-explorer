@@ -6,7 +6,7 @@ CineVerse is a modern movie discovery web application built with **React**, **Vi
 
 ## 🚀 Live Demo
 
-🔗 **Live Website:** https://movie-explorer-7xu6b0win-niyati-dev1.vercel.app/
+🔗 **Live Website:** https://movie-explorer-eight-coral.vercel.app/
 
 
 
